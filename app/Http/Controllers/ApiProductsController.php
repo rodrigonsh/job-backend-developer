@@ -26,7 +26,16 @@ class ApiProductsController extends Controller
     public function store(Request $request)
     {
         //
-        return Product::create($request->all());
+        $validated = $request->validate(
+            [
+                'name'        => 'required|unique',
+                'category'    => 'required',
+                'description' => 'required',
+                'price'       => 'required|numeric',
+                'image_url'   => 'nullable'
+            ]
+            );
+        return Product::create($validated);
     }
 
     /**
@@ -49,7 +58,16 @@ class ApiProductsController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $product->fill($request->all());
+        $validated = $request->validate(
+            [
+                'name'        => 'required|unique',
+                'category'    => 'required',
+                'description' => 'required',
+                'price'       => 'required|numeric',
+                'image_url'   => 'nullable'
+            ]
+            );
+        $product->fill($validated);
     }
 
     /**
