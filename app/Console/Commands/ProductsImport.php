@@ -53,7 +53,15 @@ class ProductsImport extends Command
         {
             // pegar pelo id
             $response = Http::get("https://fakestoreapi.com/products/$id");
-            $item = $this->parseItem($response->json());
+            $json = $response->json();
+
+            if ( $json == null )
+            {
+                $this->error("Produto $id inválido");
+                return;
+            }
+
+            $item = $this->parseItem($json);
             
             Product::create($item);            
             $this->info("Produto importado");
