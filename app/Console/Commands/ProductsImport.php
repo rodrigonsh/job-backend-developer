@@ -63,8 +63,16 @@ class ProductsImport extends Command
 
             $item = $this->parseItem($json);
             
-            Product::create($item);            
-            $this->info("Produto importado");
+            try
+            {
+                Product::create($item);            
+                $this->info("Produto importado");
+            }
+
+            catch( \Exception $e )
+            {
+                $this->error($e->getMessage());
+            }
             return 0;
         }
 
