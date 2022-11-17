@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BuscaController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [BuscaController::class, 'index']);
+
+Route::post('/buscaTermo', [BuscaController::class, 'termo']);
+Route::post('/categoria', [BuscaController::class, 'categoria']);
+Route::post('/imagem', [BuscaController::class, 'imagem']);
+Route::post('/id', [BuscaController::class, 'id']);
+
+Route::get('/produto/{id}', [ProductController::class, 'view']);
